@@ -1,0 +1,93 @@
+﻿@model IEnumerable<ECommerceWeb.Tble_Product>
+
+@{ ViewBag.Title = "ProductList";
+                Layout = "~/Views/Shared/_AdminLayout.cshtml"; }
+@*<style>
+        .dhd {
+            float: right !important;
+        }
+    </style>*@
+<h2>Products List</h2>
+@using (Html.BeginForm("Search", "Product", FormMethod.Get))
+{
+<div class="row">
+    <div class="col-md-8">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group">
+                    <label>Search Product</label>
+                    <input type="text" class="form-control" id="search" name="search" />
+                    <input type="submit" value="Search" class="btn btn-success mr-2" />
+                    <div class="dhd">
+                        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary mr-2" })
+                        @Html.ActionLink("Refresh", "ProductList", null, new { @class = "btn btn-success" })
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>}
+@*<p>
+        @Html.ActionLink("Create New", "Create", new { @class = "btn btn-danger" })
+    </p>*@
+<h4 class="text-success">@TempData["msg"]</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            S.No
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tble_Category.CategoryName)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.ProductImage)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>Action</th>
+    </tr>
+    @if (Model != null)
+    {
+        int count = 1;
+        foreach (var item in Model)
+        {
+
+<tr>
+    <td>
+        @count
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ProductName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Tble_Category.CategoryName)
+    </td>
+    @*<td>
+            @Html.DisplayFor(modelItem => item.ProductImage)
+        </td>*@
+    <td>
+        @Html.DisplayFor(modelItem => item.Quantity)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Price)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }, new { @class = "btn btn-primary mr-2" }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ProductId }, new { @class = "btn btn-danger" })
+    </td>
+</tr>{ count = count + 1; }
+                }
+
+            }
+
+
+</table>

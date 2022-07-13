@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ECommerceWeb.Tble_Category>
+
+@{ ViewBag.Title = "CategoryList";
+                Layout = "~/Views/Shared/_AdminLayout.cshtml"; }
+
+<h2>CategoryList</h2>
+
+@using (Html.BeginForm("Search", "Category", FormMethod.Get))
+{
+<div class="row">
+    <div class="col-md-8">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group">
+                    <label>Search Category</label>
+                    <input type="text" class="form-control" id="search" name="search" />
+                    <input type="submit" value="Search" class="btn btn-success mr-2" />
+                    <div class="dhd">
+                        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary mr-2" })
+                        @Html.ActionLink("Refresh", "CategoryList", null, new { @class = "btn btn-success" })
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>}
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<table class="table">
+    <tr>
+        <th>
+            S.No
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th></th>
+    </tr>
+    @if (Model != null)
+    {
+        int count = 1;
+        foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @count
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CategoryName)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId })
+    </td>
+</tr>{ count = count + 1; }
+                }
+            }
+
+
+</table>

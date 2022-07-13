@@ -1,0 +1,79 @@
+﻿@model ECommerceWeb.ViewModels.ProductFromViewModel
+
+@{ ViewBag.Title = "Edit";
+                Layout = "~/Views/Shared/_AdminLayout.cshtml"; }
+
+<h2>Edit Product</h2>
+<h4 class="text-danger">@ViewBag.msg</h4>
+@using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+@Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    <hr />
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Product.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Product.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Product.ProductName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Product.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.Product.CategoryId, new SelectList(Model.Categories, "CategoryId", "CategoryName"), "Select Category", new { @class = "form-control" })
+                                
+                                @Html.ValidationMessageFor(model => model.Product.CategoryId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Product.ProductImage, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                
+                                <img src="@Url.Content(Session["imgPath"].ToString())" width="100" height="70" />
+                                <input type="file" name="file" id="file" style="width:100%" />
+                                @Html.ValidationMessageFor(model => model.Product.ProductImage, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Product.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Product.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Product.Quantity, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Product.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Product.Price, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Product.Price, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <br />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            @Html.HiddenFor(m => m.Product.ProductId)
+                            <input type="submit" value="Update Product" class="btn btn-primary" />
+                            @Html.ActionLink("Product List", "ProductList", null, new { @class = "btn btn-primary mr-2" })
+                        </div>
+                    </div>
+                </div>}

@@ -1,0 +1,78 @@
+﻿@using ECommerceWeb.Models
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Boat Headphones</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/MyMainLayout.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <div class="logo">
+                    <h1><a href="#">Online <span>Headphone Store</span></a></h1>
+                    <p>Boat Headphones</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <div class="account">
+                    <ul>
+                        <li>
+                            <div class="hidden-xs">
+                                <h4><a>Call</a></h4>
+                                <p>9597498724</p>
+                            </div>
+
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="@Url.Action("Checkout","Home")">Cart</a>
+                    <ul class="dropdown-menu">
+                        @if (Session["cart"] != null)
+                        {
+                            foreach (Item item in (List<Item>)Session["cart"])
+                            {
+            <li>
+                <a href="@Url.Action("RemoveFromCart", "Home", new { productId=item.Product.ProductId})">@item.Product.ProductName (@item.Quantity) <i class="fa fa-times"></i></a>
+            </li>}
+                        }
+                        <li class="divider"></li>
+                        <li><a href="@Url.Action("Checkout","Home")">Checkout</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="@Url.Action("Login","Account")">Login</a>
+                </li>
+            </ul>
+
+
+        </div>
+        <ul class="nav nav-pills">
+            <li><a style="border-radius:initial;" href="@Url.Action("Index","Home")">Home</a></li>
+            <li><a style="border-radius:initial;" href="@Url.Action("Location","Home") ">Location </a></li>
+            <li><a style="border-radius:initial;" href="@Url.Action("Contact","Home") ">Contact</a></li>
+        </ul>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Online Headphones Shop</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
